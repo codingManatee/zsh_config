@@ -1,0 +1,19 @@
+#!/usr/bin/env zsh
+
+# GIT FUNCTIONS
+git_branch() {
+    git branch 2>/dev/null | sed -e '/^[^*]/d' -e 's/* \(.*\)/ (\1)/'
+}
+
+# TERMINAL PROMPT
+autoload -U colors && colors
+setopt PROMPT_SUBST
+PS1="%{$fg[yellow]%}%n%{$reset_color%}"    # username
+PS1+=" "    # space
+PS1+="%{$fg[magenta]%}%1~%{$reset_color%}"    # current directory
+PS1+="%{$fg[green]%}\$(git_branch)%{$reset_color%}"    # current branch
+PS1+=" "    # space
+PS1+=">> "    # end prompt
+export PS1
+export CLICOLOR=1
+export LSCOLORS=ExFxBxDxCxegedabagacad
